@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS PRECIO;
+DROP TABLE IF EXISTS COCHE;
 DROP TABLE IF EXISTS MARCA;
 
 CREATE TABLE MARCA (
@@ -5,7 +7,7 @@ CREATE TABLE MARCA (
     name varchar(250) not null
 );
 
-DROP TABLE IF EXISTS COCHE;
+
 
 CREATE TABLE COCHE (
     id int auto_increment primary key,
@@ -16,7 +18,7 @@ CREATE TABLE COCHE (
 
 ALTER TABLE COCHE ADD FOREIGN KEY (marca_id) REFERENCES MARCA(id);
 
-DROP TABLE IF EXISTS PRECIO;
+
 
 CREATE TABLE PRECIO (
     id int auto_increment primary key,
