@@ -45,7 +45,8 @@ public class CarControllerImpl implements CarController {
 
   @Override
   @GetMapping("/coches")
-  public @ResponseBody List<CarVO> getCoches(@RequestParam("filter") CocheFilter filter) {
+  public @ResponseBody List<CarVO> getCoches(
+      @RequestParam(value = "filter", required = false) CocheFilter filter) {
     List<Coche> coches = getCarsService.getCoches(filter);
     if (coches == null || coches.isEmpty()) throw new NotFoundException();
     return coches.stream().map(this::cocheMapper).collect(Collectors.toList());

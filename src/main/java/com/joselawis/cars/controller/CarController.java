@@ -23,7 +23,7 @@ public interface CarController {
 
   @GetMapping("/coches")
   @ResponseBody
-  List<CarVO> getCoches(@RequestParam("filter") CocheFilter filter);
+  List<CarVO> getCoches(@RequestParam(value = "filter", required = false) CocheFilter filter);
 
   @GetMapping("/excel")
   @ResponseBody
