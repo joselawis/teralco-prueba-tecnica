@@ -1,5 +1,6 @@
 package com.joselawis.cars.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,7 @@ import java.sql.Timestamp;
 
 @Data
 @Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "PRECIO")
