@@ -1,5 +1,6 @@
 package com.joselawis.cars.controller;
 
+import com.joselawis.cars.controller.filters.CocheFilter;
 import com.joselawis.cars.entity.Coche;
 import com.joselawis.cars.entity.Precio;
 import com.joselawis.cars.exception.NotFoundException;
@@ -7,16 +8,18 @@ import com.joselawis.cars.service.GetCarsService;
 import com.joselawis.cars.vo.CarVO;
 import com.joselawis.cars.vo.PrecioVO;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController
+@Controller
 public class CarControllerImpl implements CarController {
 
   private final GetCarsService getCarsService;
@@ -27,11 +30,21 @@ public class CarControllerImpl implements CarController {
 
   @Override
   @GetMapping("/cars/{date}/{id}")
+  @ResponseBody
   public List<CarVO> getCars(
       @PathVariable(name = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date,
       @PathVariable(name = "id") Long id) {
     List<Coche> coches = getCarsService.getByDateAndId(date, id);
-    if (coches.isEmpty()) throw new NotFoundException();
+    if (coches == null || coches.isEmpty()) throw new NotFoundException();
+    return coches.stream().map(this::cocheMapper).collect(Collectors.toList());
+  }
+
+  @Override
+  @GetMapping("/coches")
+  @ResponseBody
+  public List<CarVO> getCoches(@RequestParam("filter") CocheFilter filter) {
+    List<Coche> coches = getCarsService.getCoches(filter);
+    if (coches == null || coches.isEmpty()) throw new NotFoundException();
     return coches.stream().map(this::cocheMapper).collect(Collectors.toList());
   }
 

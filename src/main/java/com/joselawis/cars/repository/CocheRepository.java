@@ -1,6 +1,7 @@
 package com.joselawis.cars.repository;
 
 import com.joselawis.cars.entity.Coche;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -8,7 +9,8 @@ import org.springframework.data.repository.query.Param;
 import java.sql.Timestamp;
 import java.util.List;
 
-public interface CocheRepository extends CrudRepository<Coche, Long> {
+public interface CocheRepository
+    extends CrudRepository<Coche, Long>, JpaSpecificationExecutor<Coche> {
 
   @Query(
       "select distinct c from Coche c "
