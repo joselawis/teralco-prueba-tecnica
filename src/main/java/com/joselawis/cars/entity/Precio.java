@@ -15,21 +15,20 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "PRECIO")
 public class Precio {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "id")
+  private Long id;
 
-    @Column(name = "startDate")
-    private Timestamp startDate;
+  @Column(name = "start_date")
+  private Timestamp startDate;
 
-    @Column(name = "endDate")
-    private Timestamp endDate;
+  @Column(name = "end_date")
+  private Timestamp endDate;
 
-    @Column(name = "price")
-    private Double price;
+  @Column(name = "price")
+  private Double price;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Coche coche;
-
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Coche coche;
 }

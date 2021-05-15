@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CarVO {
-    private Long id;
-    private Long marcaId;
-    private PrecioVO precio;
+  private Long id;
+  private Long marcaId;
+  private PrecioVO precio;
 }

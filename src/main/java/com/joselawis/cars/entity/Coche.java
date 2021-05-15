@@ -16,33 +16,32 @@ import java.util.List;
 @Entity
 @Table(name = "COCHE")
 public class Coche {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "id")
+  private Long id;
 
-    @Column(name = "name")
-    private String name;
+  @Column(name = "name")
+  private String name;
 
-    @Column(name = "color")
-    private String color;
+  @Column(name = "color")
+  private String color;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Marca marca;
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Marca marca;
 
-    @OneToMany(mappedBy = "coche", cascade = CascadeType.ALL)
-    private List<Precio> precios = new ArrayList<>();
+  @OneToMany(mappedBy = "coche", cascade = CascadeType.ALL)
+  private List<Precio> precios = new ArrayList<>();
 
-    public void addPrecio(Precio precio) {
-        if (precios == null) precios = new ArrayList<>();
-        precios.add(precio);
-        precio.setCoche(this);
-    }
+  public void addPrecio(Precio precio) {
+    if (precios == null) precios = new ArrayList<>();
+    precios.add(precio);
+    precio.setCoche(this);
+  }
 
-    public void removePrecio(Precio precio) {
-        if (precios == null) precios = new ArrayList<>();
-        precios.remove(precio);
-        precio.setCoche(null);
-    }
+  public void removePrecio(Precio precio) {
+    if (precios == null) precios = new ArrayList<>();
+    precios.remove(precio);
+    precio.setCoche(null);
+  }
 }
-

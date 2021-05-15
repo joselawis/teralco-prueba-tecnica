@@ -10,10 +10,9 @@ import java.util.List;
 
 @Service
 public class GetCarsService {
-    @Autowired
-    private CocheRepository cocheRepository;
+  @Autowired private CocheRepository cocheRepository;
 
-    public List<Coche> getByDateAndId(Timestamp time, Long id) {
-        return cocheRepository.getAllByIdAndDate(time, id);
-    }
+  public List<Coche> getByDateAndId(Timestamp time, Long id) {
+    return cocheRepository.getAllByIdAndDate(time, id);
+  }
 }

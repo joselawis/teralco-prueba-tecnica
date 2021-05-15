@@ -10,10 +10,10 @@ import java.util.List;
 
 public interface CocheRepository extends CrudRepository<Coche, Long> {
 
-    @Query(
-            "select distinct c from Coche c "
-                    + "left join fetch c.precios p "
-                    + "where c.id = :id "
-                    + "and :date between p.startDate and p.endDate")
-    List<Coche> getAllByIdAndDate(@Param("date") Timestamp date, @Param("id") Long id);
+  @Query(
+      "select distinct c from Coche c "
+          + "left join fetch c.precios p "
+          + "where c.id = :id "
+          + "and :date between p.startDate and p.endDate")
+  List<Coche> getAllByIdAndDate(@Param("date") Timestamp date, @Param("id") Long id);
 }

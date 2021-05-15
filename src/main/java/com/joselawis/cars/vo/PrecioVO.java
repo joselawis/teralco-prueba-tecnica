@@ -12,8 +12,8 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PrecioVO {
-    private Long id;
-    private Date startDate;
-    private Date endDate;
-    private Double price;
+  private Long id;
+  private Date startDate;
+  private Date endDate;
+  private Double price;
 }

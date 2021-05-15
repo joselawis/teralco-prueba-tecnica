@@ -26,8 +26,8 @@ ALTER TABLE COCHE
 CREATE TABLE PRECIO
 (
     id        int auto_increment primary key,
-    startDate timestamp not null,
-    endDate   timestamp not null,
+    start_date timestamp not null,
+    end_date   timestamp not null,
     price     double    not null,
     coche_id  int       not null
 );

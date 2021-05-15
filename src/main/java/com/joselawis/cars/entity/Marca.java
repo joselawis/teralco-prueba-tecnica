@@ -17,26 +17,26 @@ import java.util.List;
 @Table(name = "MARCA")
 public class Marca {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "id")
+  private Long id;
 
-    @Column(name = "name")
-    private String name;
+  @Column(name = "name")
+  private String name;
 
-    @OneToMany(mappedBy = "marca", cascade = CascadeType.ALL)
-    private List<Coche> coches = new ArrayList<>();
+  @OneToMany(mappedBy = "marca", cascade = CascadeType.ALL)
+  private List<Coche> coches = new ArrayList<>();
 
-    public void addCoche(Coche coche) {
-        if (coches == null) coches = new ArrayList<>();
-        coches.add(coche);
-        coche.setMarca(this);
-    }
+  public void addCoche(Coche coche) {
+    if (coches == null) coches = new ArrayList<>();
+    coches.add(coche);
+    coche.setMarca(this);
+  }
 
-    public void removeCoche(Coche coche) {
-        if (coches == null) coches = new ArrayList<>();
-        coches.remove(coche);
-        coche.setMarca(null);
-    }
+  public void removeCoche(Coche coche) {
+    if (coches == null) coches = new ArrayList<>();
+    coches.remove(coche);
+    coche.setMarca(null);
+  }
 }
