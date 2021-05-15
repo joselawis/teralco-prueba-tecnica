@@ -3,6 +3,7 @@ package com.joselawis.cars.controller;
 import com.joselawis.cars.controller.filters.CocheFilter;
 import com.joselawis.cars.entity.Coche;
 import com.joselawis.cars.entity.Precio;
+import com.joselawis.cars.excel.CocheExcelExporter;
 import com.joselawis.cars.exception.NotFoundException;
 import com.joselawis.cars.service.GetCarsService;
 import com.joselawis.cars.vo.CarVO;
@@ -14,7 +15,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,8 +35,7 @@ public class CarControllerImpl implements CarController {
 
   @Override
   @GetMapping("/cars/{date}/{id}")
-  @ResponseBody
-  public List<CarVO> getCars(
+  public @ResponseBody List<CarVO> getCars(
       @PathVariable(name = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date,
       @PathVariable(name = "id") Long id) {
     List<Coche> coches = getCarsService.getByDateAndId(date, id);
@@ -41,11 +45,28 @@ public class CarControllerImpl implements CarController {
 
   @Override
   @GetMapping("/coches")
-  @ResponseBody
-  public List<CarVO> getCoches(@RequestParam("filter") CocheFilter filter) {
+  public @ResponseBody List<CarVO> getCoches(@RequestParam("filter") CocheFilter filter) {
     List<Coche> coches = getCarsService.getCoches(filter);
     if (coches == null || coches.isEmpty()) throw new NotFoundException();
     return coches.stream().map(this::cocheMapper).collect(Collectors.toList());
+  }
+
+  @Override
+  @GetMapping(value = "/excel")
+  public void exportToExcel(HttpServletResponse response) throws IOException {
+    response.setContentType("application/octet-stream");
+    DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+    String currentDateTime = dateFormatter.format(new Date());
+
+    String headerKey = "Content-Disposition";
+    String headerValue = "attachment; filename=users_" + currentDateTime + ".xlsx";
+    response.setHeader(headerKey, headerValue);
+
+    List<Coche> listCoches = getCarsService.getAll();
+
+    CocheExcelExporter excelExporter = new CocheExcelExporter(listCoches);
+
+    excelExporter.export(response);
   }
 
   private Date timestampToDate(Timestamp timestamp) {

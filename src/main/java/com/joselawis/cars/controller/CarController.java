@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -22,4 +24,8 @@ public interface CarController {
   @GetMapping("/coches")
   @ResponseBody
   List<CarVO> getCoches(@RequestParam("filter") CocheFilter filter);
+
+  @GetMapping("/excel")
+  @ResponseBody
+  void exportToExcel(HttpServletResponse response) throws IOException;
 }

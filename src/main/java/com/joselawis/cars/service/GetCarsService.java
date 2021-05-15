@@ -5,12 +5,14 @@ import com.joselawis.cars.controller.specification.CocheSpecificationBuilder;
 import com.joselawis.cars.entity.Coche;
 import com.joselawis.cars.repository.CocheRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
 @Service
+@Transactional
 public class GetCarsService {
   private final CocheRepository cocheRepository;
   private final CocheSpecificationBuilder builder;
@@ -33,5 +35,9 @@ public class GetCarsService {
         .getCriteria()
         .forEach(c -> builder.with(c.getKey(), c.getOperation(), c.getValue()));
     return cocheRepository.findAll(builder.build());
+  }
+
+  public List<Coche> getAll() {
+    return (List<Coche>) cocheRepository.findAll();
   }
 }
